@@ -17,6 +17,10 @@ import java.util.regex.Pattern;
 
 public class MainClass {
 		
+	private final static String defaultLog = "/var/log/auth.log";
+	private static String logFile;
+	private static String outFile;
+	
 
 	public static void main(String[] args) {
 		
@@ -66,13 +70,17 @@ public class MainClass {
 		}
 
 		//first argument is the log file
-		if (args.length!=2) {
-			System.out.println("Error Argument Missing");
-			System.out.println("bloclip logfile outputfile");
-		    System.exit(4);
+		if (args.length!=1) {
+			System.out.println("Using log file by default: " + defaultLog);
+			System.out.println("blockip logfile outputfile");
+		    logFile = defaultLog;
+		    outFile = args[0];
+		} 
+		if (args.length==2) {
+			logFile = args[0];
+			outFile = args[1];
 		}
-		String logFile = args[0];
-		String outFile = args[1];
+		
 	    Path logPath = Paths.get(logFile);
 	    Path outPath = Paths.get(outFile);
 	    
